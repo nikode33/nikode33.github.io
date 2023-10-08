@@ -8,9 +8,9 @@ function setup() {
   for (let i=0; i<atoms; i++) {
        cells.push([random(0, width), random(0, height), round(random(0, colors-1)), 0, 0])
   }
-  radius = createSlider(0, 300, 1);
+  radius = createSlider(0, 300, 0.1);
   radius.position(10, 10);
-  radius.style('width', '80px');
+  radius.style('width', '100px');
   
   
   move = createSlider(0, 10, 0.1);
