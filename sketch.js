@@ -4,7 +4,7 @@ let arrp = [];
 let atoms = 700;
 let colors = 9;
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(windowWidth, windowHeight);
   for (let i=0; i<atoms; i++) {
        cells.push([random(0, width), random(0, height), round(random(0, colors-1)), 0, 0])
   }
