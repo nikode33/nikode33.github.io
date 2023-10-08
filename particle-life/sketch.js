@@ -2,7 +2,7 @@ let cells = [];
 let arr = [];
 let arrp = [];
 let atoms = 700;
-let colors = 6;
+let colors = 100;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   for (let i=0; i<atoms; i++) {
