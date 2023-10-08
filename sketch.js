@@ -1,21 +1,44 @@
 const cells = [];
-const arr = [];
+let arr = [];
 let arrp = [];
 let atoms = 700;
-let colors = 9;
+let colors = 10;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   for (let i=0; i<atoms; i++) {
        cells.push([random(0, width), random(0, height), round(random(0, colors-1)), 0, 0])
   }
-  radius = createSlider(0, 300, 0.1);
+  radius = createSlider(0, 300, 1);
   radius.position(10, 10);
-  radius.style('width', '100px');
+  radius.style('width', '80px');
   
   
   move = createSlider(0, 10, 0.1);
   move.position(10, 30);
   move.style('width', '80px');
+  
+  cradius = createSlider(1, 10, 1);
+  cradius.position(10, 50);
+  cradius.style('width', '80px');
+  
+  for (let j=0; j<colors; j++) {
+    arrp.push(random(-1, 1));
+  }
+  for (let i=0; i<colors; i++) {
+    arr.push(arrp);
+    arrp = [];
+    for (let j=0; j<colors; j++) {
+      arrp.push(random(-1, 1));
+    }
+  }
+  button = createButton('Randomize Attraction Values');
+  button.position(10, 80);
+  button.mousePressed(randomarr);
+}
+
+function randomarr() {
+  arr = [];
+  arrp = [];
   for (let j=0; j<colors; j++) {
     arrp.push(random(-1, 1));
   }
@@ -27,12 +50,12 @@ function setup() {
     }
   }
 }
-
 function draw() {
   background(220);
   fill(0);
   text("Attraction Radius: " + radius.value(), 100, 25);
   text("Random Movement Amount: " + move.value(), 100, 45);
+  text("Cell Radius: " + cradius.value(), 100, 65);
   for (let i=0; i<atoms; i++) {
     cells[i][3] += random(-move.value(), move.value());
     cells[i][4] += random(-move.value(), move.value());
@@ -50,10 +73,10 @@ function draw() {
       cells[i][3] = (cells[i][3] + fx)*0.5
       cells[i][4] = (cells[i][4] + fy)*0.5
       if (cells[i][0] <= 0 || cells[i][0] >= width) {
-        cells[i][3] *= -1
+        cells[i][3] *= -2
       }
       if (cells[i][1] <= 0 || cells[i][1] >= height) {
-        cells[i][4] *= -1
+        cells[i][4] *= -2
       }
       
       cells[i][0] += cells[i][3]
@@ -82,9 +105,15 @@ function draw() {
         fill(127, 0, 255);
         break;
       case 7:
-        fill(255, 0, 127);
+        fill(255, 127, 127);
+        break;
+      case 8:
+        fill(0, 127, 127);
+        break;
+      case 9:
+        fill(0, 0, 0);
         break;
     }
-    circle(cells[i][0], cells[i][1], 5);
+    circle(cells[i][0], cells[i][1], cradius.value());
   }
 }
